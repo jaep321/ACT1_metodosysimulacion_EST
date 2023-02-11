@@ -20,6 +20,7 @@ library(flexdashboard)
 # Install thematic and un-comment for themed static plots (i.e., ggplot2)
 # thematic::thematic_rmd()
 library(ggplot2)
+library(plotly)
 library(paqueteMET)
 
 data("CarreraLuz22")
@@ -68,8 +69,7 @@ t2h=t2[6:10,]
 row.names(t2h)=categoria
 ```
 
-Column {data-width=700 .tabset}
------------------------------------------------------------------------
+## Column {.tabset data-width="700"}
 
 ### Tiempos de carrera
 
@@ -103,7 +103,57 @@ ggplot(CarreraLuz22M, aes(x = categoria, y = timerun/60 )) +
 t2h
 ```
 
+### Bar Plot
+
+```{r, fig.height=3}
+# Crear un bar plot de la frecuencia de cada categoría en la variable CATEGORIA
+ggplot(CarreraLuz22F, aes(x = categoria)) + 
+  geom_bar(fill = "lightblue") +
+  labs(title = "Distribución de Categorías", 
+       x = "Categoría", 
+       y = "Frecuencia")
+
+```
+
+### Histograma de EDAD
+
+```{r, fig.height=3}
+# Crear un histograma de la variable EDAD
+ggplot(CarreraLuz22F, aes(x = edad)) + 
+  geom_histogram(fill = "lightblue", binwidth = 5) +
+  labs(title = "Histograma de Edad", 
+       x = "Edad", 
+       y = "Frecuencia")
+
+```
+
+### Distribucion de origenes de participantes
+
+```{r, fig.height=3}
+# Crear un gráfico de pastel de la variable NACIONALIDAD
+ggplot(CarreraLuz22F, aes(x = "", y = 1, fill = origen)) + 
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start = 0) +
+  labs(title = "Gráfico de Pastel de Nacionalidad", 
+       x = "", 
+       y = "") +
+  scale_fill_discrete(name = "Nacionalidad")
+
+```
+
+### Grafico en 3D
+
+```{r, fig.height=3}
+# Crear un gráfico en 3D de la variable EDAD, TIEMPO_DE_CARRERA y CATEGORIA
+plot_ly(CarreraLuz22F, x = ~edad, y = ~timerun, z = ~categoria, type = "scatter", mode = "markers", color = ~categoria) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis_title = "Edad", yaxis_title = "Tiempo de Carrera", zaxis_title = "Categoría"))
+
+```
+
+
 ### Mujeres por categoría
+
 ```{r, fig.height=3}
 ggplot(CarreraLuz22F, aes(x = categoria, y = timerun/60 )) +
   geom_boxplot(aes(fill = categoria)) + 
@@ -125,8 +175,7 @@ knitr::include_graphics("carrera1.png")
 
 **Salida**: Hotel Intercontinental, calle 5, Carrera 6, carrera 4c, carrera1, carrera 4, calle de la escopeta, museo arqueológico la merced, bulevar del rio, puente Ortiz, av 2N, parque lineal rio Cali av2n, calle 25, parque lineal av1n, calle 13, carrera 1 calle 12, carrera 5, calle 10, gobernación del valle, edificio Aristi carrera 9, calle 9 plazoleta de san francisco, bulevar del rio, calle 8, carrera 4, carrera 3ª, parque del peñón, carrera 3, carrera 3ª oeste, calle 5 oeste, carrera 4, av Belalcázar, carrera 2ª oeste, librería nacional, carrera 1c, museo la tertulia, av Colombia, pepe ganga, carrera 3, carrera 2, carrera 3ª, av Colombia, carrera 4, meta hotel intercontinental. [juanchocorrelon.com](https://juanchocorrelon.com/intercontinental-10k-luz-2022/#10k)
 
-Column {data-width=400}
------------------------------------------------------------------------
+## Column {data-width="400"}
 
 ### Tiempo mujeres categoría Abierta
 
@@ -154,9 +203,10 @@ ylab = "frecuencia",
 col ="#ee964b")
 ```
 
-Column { data-width=50 }
------------------------------------------------------------------------
-### minimo  {.value-box}
+## Column {data-width="50"}
+
+### minimo {.value-box}
+
 ```{r}
 valueBox(value =paste(round(min(CarreraLuz22$timerun/60),1), "min"), 
          caption = "Tiempo ganador", 
@@ -164,8 +214,8 @@ valueBox(value =paste(round(min(CarreraLuz22$timerun/60),1), "min"),
          color = "#0EB0C6")
 ```
 
+### velocidad {.value-box}
 
-### velocidad  {.value-box}
 ```{r}
 valueBox(value =paste(round(10070/min(CarreraLuz22$timerun),2),"m/s"), # ud1$cierre, 
          caption = "Máxima velocidad", 
@@ -173,8 +223,8 @@ valueBox(value =paste(round(10070/min(CarreraLuz22$timerun),2),"m/s"), # ud1$cie
          color = "#0EB0C6")
 ```
 
+### distancia {.value-box}
 
-### distancia  {.value-box}
 ```{r}
 valueBox(value = paste(10.07,"Km"), #ud1$min, 
          caption = "Distancia recorrida", 
@@ -182,8 +232,8 @@ valueBox(value = paste(10.07,"Km"), #ud1$min,
          color = "#0EB0C6")
 ```
 
+### volumen {.value-box}
 
-### volumen  {.value-box}
 ```{r}
 valueBox(value = paste(length(CarreraLuz22$timerun),"atletas"), 
          caption = "Número de participantes", 
@@ -191,8 +241,8 @@ valueBox(value = paste(length(CarreraLuz22$timerun),"atletas"),
          color = "#0EB0C6")
 ```
 
+### porcentaje {.value-box}
 
-### porcentaje  {.value-box}
 ```{r}
 valueBox(value = paste(round(length(CarreraLuz22F$timerun)/length(CarreraLuz22$timerun)*100,2),"%"), 
          caption = "Porcentaje mujeres", 
@@ -200,12 +250,11 @@ valueBox(value = paste(round(length(CarreraLuz22F$timerun)/length(CarreraLuz22$t
          color = "#0EB0C6")
 ```
 
-### promedio  {.value-box}
+### promedio {.value-box}
+
 ```{r}
 valueBox(value = paste(round(mean(CarreraLuz22$timerun/60),2),"min"), 
          caption = "Tiempo promedio de carrera", 
          icon = "  ", 
          color = "#0EB0C6")
 ```
-
-
