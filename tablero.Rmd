@@ -155,15 +155,17 @@ ggplot(CarreraLuz22F, aes(x = categoria, y = timerun/60 )) +
 t2m
 ```
 
-### Más información
+### Analisis de la Carrera de la Luz 2022
 
-```{r, echo=FALSE, out.width="30%", fig.align = "center"}
-knitr::include_graphics("carrera1.png")
-```
+**Analisis:** A continuacion, se presentan algunos resultados del analisis exploratorio de los datos:
 
-**10.07 K** Participantes desde los 15 años en adelante.
+* En la carrera existe una predominancia del genero masculino con un 61.29% de hombres frente a un 38.71% de mujeres 
 
-**Salida**: Hotel Intercontinental, calle 5, Carrera 6, carrera 4c, carrera1, carrera 4, calle de la escopeta, museo arqueológico la merced, bulevar del rio, puente Ortiz, av 2N, parque lineal rio Cali av2n, calle 25, parque lineal av1n, calle 13, carrera 1 calle 12, carrera 5, calle 10, gobernación del valle, edificio Aristi carrera 9, calle 9 plazoleta de san francisco, bulevar del rio, calle 8, carrera 4, carrera 3ª, parque del peñón, carrera 3, carrera 3ª oeste, calle 5 oeste, carrera 4, av Belalcázar, carrera 2ª oeste, librería nacional, carrera 1c, museo la tertulia, av Colombia, pepe ganga, carrera 3, carrera 2, carrera 3ª, av Colombia, carrera 4, meta hotel intercontinental. [juanchocorrelon.com](https://juanchocorrelon.com/intercontinental-10k-luz-2022/#10k)
+* La mediana de edad es de 36 años
+
+* La mayoria de los participantes son de nacionalidad Colombiana con un 99.6%
+
+* Los tiempos de carrera entre categorias varian muy poco
 
 ## Column {data-width="400"}
 
