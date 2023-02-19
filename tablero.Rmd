@@ -127,6 +127,16 @@ ggplot(CarreraLuz22F, aes(x = edad)) +
 
 ```
 
+### Grafico 3D
+
+```{r, fig.height=3}
+# Crear un gráfico en 3D de la variable EDAD, TIEMPO_DE_CARRERA y CATEGORIA
+plot_ly(CarreraLuz22F, x = ~edad, y = ~timerun, z = ~categoria, type = "scatter", mode = "markers", color = ~categoria) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis_title = "Edad", yaxis_title = "Tiempo de Carrera", zaxis_title = "Categoría"))
+
+```
+
 ### Distribucion de origenes de participantes
 
 ```{r, fig.height=3}
